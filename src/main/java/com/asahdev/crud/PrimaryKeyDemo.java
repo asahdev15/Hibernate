@@ -1,9 +1,12 @@
-package com.asahdev.demo;
+package com.asahdev.crud;
 
-import com.asahdev.demo.entity.Student;
+import com.asahdev.DateUtils;
+import com.asahdev.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import java.util.Date;
 
 public class PrimaryKeyDemo {
 
@@ -11,7 +14,7 @@ public class PrimaryKeyDemo {
 
 		// create session factory
 		SessionFactory factory = new Configuration()
-								.configure("hibernate.cfg.xml")
+								.configure("/config/crud/hibernate.cfg.xml")
 								.addAnnotatedClass(Student.class)
 								.buildSessionFactory();
 		
@@ -21,9 +24,11 @@ public class PrimaryKeyDemo {
 		try {			
 			// create 3 student objects
 			System.out.println("Creating 3 student objects...");
-			Student tempStudent1 = new Student("John", "Doe", "john@luv2code.com");
-			Student tempStudent2 = new Student("Mary", "Public", "mary@luv2code.com");
-			Student tempStudent3 = new Student("Bonita", "Applebum", "bonita@luv2code.com");
+			String theDateOfBirthStr = "31/12/1998";
+			Date theDateOfBirth = DateUtils.parseDate(theDateOfBirthStr);
+			Student tempStudent1 = new Student("John", "Doe", "john@luv2code.com", theDateOfBirth);
+			Student tempStudent2 = new Student("Mary", "Public", "mary@luv2code.com", theDateOfBirth);
+			Student tempStudent3 = new Student("Bonita", "Applebum", "bonita@luv2code.com", theDateOfBirth);
 			
 			// start a transaction
 			session.beginTransaction();
@@ -39,7 +44,9 @@ public class PrimaryKeyDemo {
 			
 			System.out.println("Done!");
 		}
-		finally {
+		catch (Exception exc) {
+			exc.printStackTrace();
+		} finally {
 			factory.close();
 		}
 		

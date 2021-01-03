@@ -1,6 +1,6 @@
-package com.asahdev.demo;
+package com.asahdev.crud;
 
-import com.asahdev.demo.entity.Student;
+import com.asahdev.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -11,7 +11,7 @@ public class UpdateStudentDemo {
 
 		// create session factory
 		SessionFactory factory = new Configuration()
-								.configure("hibernate.cfg.xml")
+								.configure("/config/crud/hibernate.cfg.xml")
 								.addAnnotatedClass(Student.class)
 								.buildSessionFactory();
 		
